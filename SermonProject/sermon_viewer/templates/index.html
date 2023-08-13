@@ -34,6 +34,22 @@
             <label for="search">Search Term:</label>
             <input type="text" id="search" name="search">
 
+            <br>
+
+            <label for="mintime">Minimum Length:</label>
+            <input type="text" id="mintime" name="mintime" size="4">
+
+            <label for="maxtime">Maximum Length:</label>
+            <input type="text" id="maxtime" name="maxtime" size="4">
+
+            <label for="ordering">Sort By:</label>
+            <select name="selected_order" id="ordering">
+                <option value="0">By Book</option>
+                <option value="1">Newest to Oldest</option>
+                <option value="2">Oldest to Newest</option>
+                <option value="3">Alphabetically</option>
+            </select>
+
             <!-- <label for="yearDropdown">Year:</label>
             <select name="select_year id="yearDropdown">
                 {% for year in years %}
@@ -50,7 +66,7 @@
         <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
         <script>
             $(document).ready(function() {
-                $('#bookDropdown, #speakerDropdown, #startdate, #enddate, #search').on('change', function() {
+                $('#bookDropdown, #speakerDropdown, #startdate, #enddate, #search, #mintime, #maxtime, #ordering').on('change', function() {
 
                     var formData = $('form').serializeArray();
                     

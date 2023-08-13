@@ -19,16 +19,25 @@ def update_content(request):
         start = request.POST.get('startdate')
         end = request.POST.get('enddate')
         term = request.POST.get('search')
+        minlen = request.POST.get('mintime')
+        maxlen = request.POST.get('maxtime')
+        ordering = request.POST.get('selected_order')
 
         if start and start.isdigit():
             start = int(start)
         if end and end.isdigit():
             end = int(end)
+        if minlen and minlen.isdigit():
+            minlen = int(minlen) * 60000
+        if maxlen and maxlen.isdigit():
+            maxlen = int(maxlen) * 60000
+        if ordering:
+            ordering = int(ordering)
 
+        sermons = filter.getSermons(book, speaker, start, end, term, minlen, maxlen)
+        sermons = filter.orderSermons(sermons, ordering)
+        sermons = filter.querySetToList(sermons)
 
-        print("LOOK HERE: ", start, end, term)
-
-        sermons = filter.getSermons(book, speaker, start, end, term)
         updated_content = f"{len(sermons)} results<br><ul>"
         for sermon in sermons:
             updated_content += f'<li>{sermon.title}, {sermon.speaker}</li> '

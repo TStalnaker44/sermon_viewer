@@ -10,6 +10,10 @@ class Sermons(models.Model):
     month = models.IntegerField()
     day = models.IntegerField()
     duration = models.IntegerField()
+    start_chapter = models.IntegerField()
+    end_chapter = models.IntegerField()
+    start_verse = models.IntegerField()
+    end_verse = models.IntegerField()
 
     class Meta:
         managed = False
