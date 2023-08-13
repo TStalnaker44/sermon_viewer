@@ -1,0 +1,72 @@
+
+<!DOCTYPE html>
+{% load static %}
+<html>
+    <head>
+        <meta charset="utf-8" />
+        <title>Sermons</title>
+    </head>
+    <body>
+
+        <form method="post">
+            <!-- <input type="hidden" name="csrfmiddlewaretoken" value="{% csrf_token %}"> -->
+            <label for="bookDropdown">Book:</label>
+            <select name="selected_book" id="bookDropdown">
+                {% for book in books %}
+                    <option value="{{book}}">{{book}}</option>
+                {% endfor %}
+            </select>
+
+
+            <label for="speakerDropdown">Speaker:</label>
+            <select name="selected_speaker" id="speakerDropdown">
+                {% for speaker in speakers %}
+                    <option value="{{speaker}}">{{speaker}}</option>
+                {% endfor %}
+            </select>
+
+            <label for="startdate">Start Date:</label>
+            <input type="text" id="startdate" name="startdate" size="4">
+
+            <label for="enddate">End Date:</label>
+            <input type="text" id="enddate" name="enddate" size="4">
+
+            <label for="search">Search Term:</label>
+            <input type="text" id="search" name="search">
+
+            <!-- <label for="yearDropdown">Year:</label>
+            <select name="select_year id="yearDropdown">
+                {% for year in years %}
+                    <option value="{{year}}">{{year}}</option>
+                {% endfor %}
+            </select> -->
+
+        </form>
+
+
+
+        <div id="updatedContent">Search for Sermons</div>
+
+        <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+        <script>
+            $(document).ready(function() {
+                $('#bookDropdown, #speakerDropdown, #startdate, #enddate, #search').on('change', function() {
+
+                    var formData = $('form').serializeArray();
+                    
+                    $.ajax({
+                        type: 'POST',
+                        url: '{% url "update_content" %}',
+                        data: formData,
+                        success: function(response) {
+                            $('#updatedContent').html(response.updated_content);
+                        }
+                    });
+                });
+            });
+        </script>
+            
+
+
+    </body>
+</html>
