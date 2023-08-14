@@ -201,6 +201,18 @@ h1{
 
 
         </style>
+<script>
+function downloadAudio(audioSource, title) {
+  const userConfirmed = confirm('Do you want to download ' + title + '?');
+  if (userConfirmed) {
+    const link = document.createElement('a');
+    link.href = audioSource;
+    link.download = 'audio-file.mp3';
+    link.click();
+  }
+}
+
+</script>
     </head>
     <body>
 
