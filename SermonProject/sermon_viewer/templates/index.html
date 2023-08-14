@@ -5,50 +5,159 @@
     <head>
         <meta charset="utf-8" />
         <title>Sermons</title>
+        <style>
+       /* Center the form and its contents */
+.searchOptions {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid #ccc;
+  padding: 20px;
+  border-radius: 10px;
+  max-width: 650px;
+  margin: 0 auto;
+  background-color: #f5f5f5;
+}
+
+/* Style labels */
+label {
+  margin-top: 10px;
+  font-weight: bold;
+}
+
+/* Style select dropdowns */
+select {
+  padding: 5px;
+  margin: 5px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+
+/* Style text inputs */
+input[type="text"] {
+  padding: 5px;
+  margin: 5px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+
+/* Apply styles to the button */
+button {
+  padding: 10px 20px;
+  background-color: #007bff;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+/* Apply hover effect to the button */
+button:hover {
+  background-color: #0056b3;
+}
+
+/* Display inputs on the same line */
+.searchOptions > div {
+  display: flex;
+  flex-wrap: wrap;
+  /* justify-content: space-between; */
+  justify-content: space-between;
+  width: 100%;
+}
+
+/* Adjust spacing between inputs and labels */
+.searchOptions > div > label,
+.searchOptions > div > select,
+.searchOptions > div > input {
+  margin: 5px 0;
+}
+
+/* Add a vertical bar */
+.bar {
+  margin: 0 10px;
+  color: #ccc;
+}
+
+/* Adjust layout for date inputs */
+.dateInputs {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 10px;
+  width: 100%;
+}
+
+.termSearch{
+    justify-content: center !important;
+}
+
+.termSearch > label {
+    padding-right: 15px;
+}
+
+h1{
+    text-align: center;
+}
+
+        </style>
     </head>
     <body>
 
-        <form method="post">
-            <!-- <input type="hidden" name="csrfmiddlewaretoken" value="{% csrf_token %}"> -->
-            <label for="bookDropdown">Book:</label>
-            <select name="selected_book" id="bookDropdown">
-                {% for book in books %}
-                    <option value="{{book}}">{{book}}</option>
-                {% endfor %}
-            </select>
+        <h1>CFCW Advanced Sermon Search</h1>
+
+        <form method="post" class="searchOptions">
+            
+            <div>
+                <label for="bookDropdown">Book:</label>
+                <select name="selected_book" id="bookDropdown">
+                    {% for book in books %}
+                        <option value="{{book}}">{{book}}</option>
+                    {% endfor %}
+                </select>
 
 
-            <label for="speakerDropdown">Speaker:</label>
-            <select name="selected_speaker" id="speakerDropdown">
-                {% for speaker in speakers %}
-                    <option value="{{speaker}}">{{speaker}}</option>
-                {% endfor %}
-            </select>
+                <label for="speakerDropdown">Speaker:</label>
+                <select name="selected_speaker" id="speakerDropdown">
+                    {% for speaker in speakers %}
+                        <option value="{{speaker}}">{{speaker}}</option>
+                    {% endfor %}
+                </select>
 
-            <label for="startdate">Start Date:</label>
-            <input type="text" id="startdate" name="startdate" size="4">
+                <label for="ordering">Sort By:</label>
+                <select name="selected_order" id="ordering">
+                    <option value="0">By Book</option>
+                    <option value="1">Newest to Oldest</option>
+                    <option value="2">Oldest to Newest</option>
+                    <option value="3">Alphabetically</option>
+                </select>
+            </div>
 
-            <label for="enddate">End Date:</label>
-            <input type="text" id="enddate" name="enddate" size="4">
+            <div class="dateInputs">
+                <label for="startdate">Start Date:</label>
+                <input type="text" id="startdate" name="startdate" size="4">
 
+                <label for="enddate">End Date:</label>
+                <input type="text" id="enddate" name="enddate" size="4">
+
+                <span class="bar">|</span>
+
+                <label for="mintime">Min Length:</label>
+                <input type="text" id="mintime" name="mintime" size="4">
+    
+                <label for="maxtime">Max Length:</label>
+                <input type="text" id="maxtime" name="maxtime" size="4">
+
+            </div> 
+
+            <div class="termSearch">
             <label for="search">Search Term:</label>
             <input type="text" id="search" name="search">
+            </div>
 
-            <br>
 
-            <label for="mintime">Minimum Length:</label>
-            <input type="text" id="mintime" name="mintime" size="4">
 
-            <label for="maxtime">Maximum Length:</label>
-            <input type="text" id="maxtime" name="maxtime" size="4">
 
-            <label for="ordering">Sort By:</label>
-            <select name="selected_order" id="ordering">
-                <option value="0">By Book</option>
-                <option value="1">Newest to Oldest</option>
-                <option value="2">Oldest to Newest</option>
-                <option value="3">Alphabetically</option>
-            </select>
 
             <!-- <label for="yearDropdown">Year:</label>
             <select name="select_year id="yearDropdown">
