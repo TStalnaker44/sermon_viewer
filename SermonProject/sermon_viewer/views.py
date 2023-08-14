@@ -38,10 +38,10 @@ def update_content(request):
         sermons = filter.orderSermons(sermons, ordering)
         sermons = filter.querySetToList(sermons)
 
-        updated_content = f"{len(sermons)} results<br><ul>"
+        updated_content = f'<div class="results">{len(sermons)} Results</div><ul class="sermonList">'
         for sermon in sermons:
-            updated_content += f'<li>{sermon.title}, {sermon.speaker}</li> '
-            updated_content += f'<audio controls><source src="{sermon.square_url}" controls><source type="audio/mpeg"></audio>'
+            updated_content += f'<li><div class="header"><div class="title">{sermon.title}</div><div class="speaker">{sermon.speaker}</div></div>'
+            updated_content += f'<audio controls><source src="{sermon.square_url}" controls><source type="audio/mpeg"></audio></li>'
         updated_content += "</ul>"
 
         return JsonResponse({'updated_content': updated_content})
