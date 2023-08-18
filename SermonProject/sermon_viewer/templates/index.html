@@ -271,7 +271,22 @@ function downloadAudio(audioSource, title) {
 
 
 
-        <div id="updatedContent"><div class="results">Use Filters to Search</div></div>
+        <!-- <div id="updatedContent"><div class="results">Use Filters to Search</div></div> -->
+
+        <div id="updatedContent">
+          <div class="results">{{sermons.count}} Results</div>
+          <ul class="sermonList">
+            {% for sermon in sermons %}
+              <li onclick="downloadAudio('{{sermon.square_url}}?download=true', '{{title}}')">
+                <div class="header">
+                  <div class="title">{{sermon.title}}</div>
+                  <div class="speaker">{{sermon.speaker}}</div>
+                </div>
+                <audio controls><source src="{{sermon.square_url}}" controls><source type="audio/mpeg"></audio>
+              </li>
+            {% endfor %}
+          </ul>
+        </div>
 
         <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
         <script>

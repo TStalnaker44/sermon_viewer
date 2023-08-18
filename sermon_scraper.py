@@ -26,6 +26,7 @@ def bookExists(book):
 
 def getSermonsOnPage(book):
     if not bookExists(book):
+        time.sleep(2)
         url = base_url + book
         response = requests.get(url).text
         saveHTML(book, response)

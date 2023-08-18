@@ -5,7 +5,7 @@ from .utils import filter
 from .models import Sermons
 
 def index(request):
-    sermons = Sermons.objects.filter(book="Genesis")
+    sermons = Sermons.objects.all()
     books = filter.getSelections("book")
     speakers = filter.getSelections("speaker")
     years = filter.getSelections("year")
