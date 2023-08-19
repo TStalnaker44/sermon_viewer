@@ -16,6 +16,8 @@ habakkuk
 zephaniah
 matthew
 mark
+luke
+acts
 1-corinthians
 2-corinthians
 galatians

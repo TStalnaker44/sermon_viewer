@@ -5,7 +5,17 @@ from .book_order import book_ordering
 
 def getSelections(field):
     selections = Sermons.objects.values(field).distinct()
-    return ["Any"] + [x[field] for x in selections]
+    return [x[field] for x in selections]
+
+def getPastors():
+    return ["Peter Hess", "Bryce Rader", "Adam Messer", "Josiah Monfreda"]
+
+def getGuestSpeakers():
+    pastors = getPastors()
+    speakers = getSelections("speaker")
+    speakers = ["Unknown" if s == "" else s for s in speakers if s not in pastors]
+    return sorted(speakers)
+
 
 def getSermons(b, s, start=2013, end=2023, term="", minlen="", maxlen=""):
     sermons = Sermons.objects.all()

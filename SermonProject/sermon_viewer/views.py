@@ -5,11 +5,23 @@ from .utils import filter
 from .models import Sermons
 
 def index(request):
-    sermons = Sermons.objects.all()
-    books = filter.getSelections("book")
-    speakers = filter.getSelections("speaker")
+    speaker = request.GET.get("speaker") or "Any"
+    book = request.GET.get("book") or "Any"
+    ordering = request.GET.get("ordering") or "0"
+    if ordering.isdigit(): ordering = int(ordering)
+    term = request.GET.get("term") or ""
+
+    sermons = filter.getSermons(book, speaker, term=term)
+    sermons = filter.orderSermons(sermons, ordering)
+    print(len(sermons))
+    books = ["Any"] + filter.getSelections("book")
+    guest_speakers = filter.getGuestSpeakers()
+    pastors = filter.getPastors()
     years = filter.getSelections("year")
-    return render(request, 'index.html', {"books":books, "speakers":speakers, "years":years, "sermons":sermons})
+    return render(request, 'index.html', {"books":books, "guest_speakers":guest_speakers, 
+                                          "pastors":pastors, "years":years, "sermons":sermons,
+                                          "book":book, "speaker":speaker, "ordering":ordering,
+                                          "term":term})
 
 @csrf_exempt
 def update_content(request):

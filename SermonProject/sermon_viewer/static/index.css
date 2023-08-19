@@ -1,0 +1,189 @@
+
+body{
+    font-family: 'Roboto';
+}
+       /* Center the form and its contents */
+.searchOptions {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid #ccc;
+  padding: 20px;
+  border-radius: 10px;
+  max-width: 650px;
+  margin: 0 auto;
+  background-color: #f5f5f5;
+}
+
+/* Style labels */
+label {
+  margin-top: 10px;
+  /* font-weight: bold; */
+}
+
+/* Style select dropdowns */
+select {
+  padding: 5px;
+  margin: 5px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+
+/* Style text inputs */
+input[type="text"] {
+  padding: 5px;
+  margin: 5px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+
+/* Apply styles to the button */
+button {
+  padding: 10px 20px;
+  background-color: #007bff;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+/* Apply hover effect to the button */
+button:hover {
+  background-color: #0056b3;
+}
+
+/* Display inputs on the same line */
+.searchOptions > div {
+  display: flex;
+  flex-wrap: wrap;
+  /* justify-content: space-between; */
+  justify-content: space-between;
+  width: 100%;
+}
+
+/* Adjust spacing between inputs and labels */
+.searchOptions > div > label,
+.searchOptions > div > select,
+.searchOptions > div > input {
+  margin: 5px 0;
+}
+
+/* Add a vertical bar */
+.bar {
+  margin: 0 10px;
+  color: #ccc;
+}
+
+/* Adjust layout for date inputs */
+.dateInputs {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 10px;
+  width: 100%;
+}
+
+.termSearch{
+    justify-content: center !important;
+}
+
+.termSearch > label {
+    padding-right: 15px;
+}
+
+h1{
+    text-align: center;
+}
+
+.results{
+    width: 180px;
+    margin: auto;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    text-align: center;
+    background-color: #f5f5f5;
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+
+
+/* Style for the list */
+.sermonList {
+  list-style: none;
+  padding: 0;
+  margin: auto;
+  width: 60%;
+}
+
+/* Style for each list item */
+.sermonList li {
+  display: flex;
+  flex-direction: column;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  margin-bottom: 10px;
+  background-color: #fff;
+}
+
+/* Style for the speaker span */
+.speaker {
+  flex: 1;
+  text-align: right;
+}
+
+.title{
+  flex: 3;
+  text-align: left;
+}
+
+.header{
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  padding-bottom: 2px;
+}
+
+/* Style for the title and speaker spans */
+.sermonList li div {
+  /* font-weight: bold; */
+  margin-right: 10px;
+}
+
+/* Style for the audio player */
+.sermonList li audio {
+  width: 100%;
+  border-radius: 5px;
+}
+
+
+/* Style for audio player controls */
+.sermonList li audio::-webkit-media-controls-panel {
+  background-color: transparent;
+  color: #007bff;
+  border: none;
+}
+
+.sermonList li audio::-webkit-media-controls-play-button,
+.sermonList li audio::-webkit-media-controls-pause-button {
+  color: #007bff;
+}
+
+/* Style for audio progress bar */
+.sermonList li audio::-webkit-media-controls-current-time-display,
+.sermonList li audio::-webkit-media-controls-time-remaining-display,
+.sermonList li audio::-webkit-media-controls-seek-back-button,
+.sermonList li audio::-webkit-media-controls-seek-forward-button,
+.sermonList li audio::-webkit-media-controls-mute-button,
+.sermonList li audio::-webkit-media-controls-volume-slider {
+  display: none;
+}
+
+/* Hover effect for list items */
+.sermonList li:hover {
+  background-color: #f5f5f5;
+  cursor: pointer;
+}
