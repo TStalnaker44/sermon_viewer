@@ -6,12 +6,13 @@ from .models import Sermons
 
 def index(request):
     speaker = request.GET.get("speaker") or "Any"
+    clean_speaker = speaker if speaker != "Unknown" else ""
     book = request.GET.get("book") or "Any"
     ordering = request.GET.get("ordering") or "0"
     if ordering.isdigit(): ordering = int(ordering)
     term = request.GET.get("term") or ""
 
-    sermons = filter.getSermons(book, speaker, term=term)
+    sermons = filter.getSermons(book, clean_speaker, term=term)
     sermons = filter.orderSermons(sermons, ordering)
     print(len(sermons))
     books = ["Any"] + filter.getSelections("book")
@@ -28,6 +29,7 @@ def update_content(request):
     if request.method == 'POST':
         book = request.POST.get('selected_book')
         speaker = request.POST.get('selected_speaker')
+        speaker = speaker if speaker != "Unknown" else ""
         start = request.POST.get('startdate')
         end = request.POST.get('enddate')
         term = request.POST.get('search')

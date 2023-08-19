@@ -17,7 +17,9 @@ zephaniah
 matthew
 mark
 luke
+john
 acts
+romans
 1-corinthians
 2-corinthians
 galatians
