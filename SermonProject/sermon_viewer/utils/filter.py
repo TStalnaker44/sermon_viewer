@@ -37,7 +37,7 @@ def getSermons(b, s, start=2013, end=2023, term="", minlen="", maxlen=""):
 
 def orderSermons(sermons, ordering):
     if ordering == 0:
-        return sermons.order_by(book_ordering)
+        return sermons.order_by(book_ordering, "start_chapter", "start_verse", "end_chapter", "end_verse")
     elif ordering == 1: # New to Old
         return sermons.order_by('-year', "-month", "-day")
     elif ordering == 2: # Old to New

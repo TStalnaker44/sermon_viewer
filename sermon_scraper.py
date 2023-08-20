@@ -1,14 +1,17 @@
 
 import requests, json, os
-import sqlite3, time
+import sqlite3, time, re
 from bs4 import BeautifulSoup
 
 DATA_BASE = "audio.db"
 
+pattern = pattern = "[A-Za-z]+ (\d+)(:(\d+)(-(\d+)(:(\d+))?)?)?"
+
 base_url = "https://www.cfcwilliamsburg.org/podcast-sermons/"
 insert_query = "INSERT INTO sermons (title, short_title, book, speaker, " +\
-               "square_url, year, month, day, duration) " + \
-               "VALUES (?,?,?,?,?,?,?,?,?)"
+               "square_url, year, month, day, duration, start_chapter, " +\
+               "end_chapter, start_verse, end_verse) " + \
+               "VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?)"
 
 def getBooks():
     with open("books.txt", "r", encoding="utf-8") as file:
@@ -26,7 +29,7 @@ def bookExists(book):
 
 def getSermonsOnPage(book):
     if not bookExists(book):
-        time.sleep(2)
+        time.sleep(5)
         url = base_url + book
         response = requests.get(url).text
         saveHTML(book, response)
@@ -46,9 +49,39 @@ def getSermonData(s, book):
     url = s.get("data-url")
     duration = s.get("data-duration-in-ms")
     year, month, day = title.split()[0].split(".")
+    sc, sv, ec, ev = parseVerses(title)
     data = (title, short_title, book, speaker, url,
-            year, month, day, duration)
+            year, month, day, duration, sc, ec, sv, ev)
     return data
+
+def parseVerses(string):
+    a = re.search(pattern, string)
+    if not a:
+        return (0,0,0,0)
+    hits = len([x for x in a.groups() if x != None])
+    if hits == 1:
+        start_chap = a.group(1)
+        start_verse = 1
+        end_chap = start_chap
+        end_verse = start_verse
+        return (start_chap,start_verse,
+                start_chap,start_verse)
+    elif hits == 3:
+        start_chap = a.group(1)
+        start_verse = a.group(3)
+        end_chap = start_chap
+        end_verse = start_verse
+    elif hits == 5:
+        start_chap = a.group(1)
+        start_verse = a.group(3)
+        end_chap = start_chap
+        end_verse = a.group(5)
+    elif hits == 7:
+        start_chap = a.group(1)
+        start_verse = a.group(3)
+        end_chap = a.group(5)
+        end_verse = a.group(7)
+    return (start_chap,start_verse,end_chap,end_verse)
 
 def insertIntoDatabase(data, conn):
     cursor = conn.cursor()

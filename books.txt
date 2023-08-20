@@ -24,6 +24,7 @@ romans
 2-corinthians
 galatians
 ephesians
+philippians
 colossians
 1-thessalonians
 1-timothy
